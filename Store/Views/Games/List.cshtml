@@ -1,0 +1,25 @@
+﻿<h1>Все игры</h1>
+<h3>@Model.gameCategory</h3>
+
+<div class="row mt-4 md-5">
+    @{
+        foreach (var game in Model.allGames)
+        {
+            <div class="col-lg-4">
+                 <img class="img-thumbnail" src="@game.img" alt="@game.name" />
+                <h2>Модель: @game.name</h2>
+                <p>@game.description</p>
+                <p>Цена:
+                    @{
+                        if (game.price == 0)
+                            @game.price.ToString("free")
+                        else
+                            @game.price.ToString("c")
+                    }
+                </p>
+                <p><a class="btn btn-warning" href="#">Купить</a></p>
+            </div>
+        }
+    }
+
+</div>
