@@ -30,8 +30,8 @@ namespace Store
             services.AddDbContext<DateBaseContent>(options => options.UseSqlServer(_confString.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
-            services.AddTransient<IAllGames,MockGames>(); // Интерфейс IAllGames реализуется в классе GameRepository
-            services.AddTransient<IGamesCategory, MockCategory>();
+            services.AddTransient<IAllGames,GameRepository>(); // Интерфейс IAllGames реализуется в классе GameRepository
+            services.AddTransient<IGamesCategory, CategoryRepository>();
             services.AddRazorPages();
 
         }
@@ -52,6 +52,13 @@ namespace Store
             {
                 endpoints.MapControllerRoute("default", "{controller=Games}/{action=List}");
             });
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                DateBaseContent content = app.ApplicationServices.GetRequiredService<Data.DateBaseContent>();
+                DataBaseObject.Initial(content);
+            }
+
+           
         }
     }
 }

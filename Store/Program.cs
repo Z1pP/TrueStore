@@ -20,7 +20,7 @@ namespace Store
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>().UseDefaultServiceProvider(option => option.ValidateScopes = false);
                 });
     }
 }
